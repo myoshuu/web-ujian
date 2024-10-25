@@ -7,6 +7,7 @@ import type { Session } from "./helper/type";
 const App: React.FC = () => {
   const [session, setSession] = useState<Session | null>(null);
   const [timeLeft, setTimeLeft] = useState<number>(35 * 60); // 35 minutes in seconds
+  const [availableTest, setAvailableTest] = useState(false);
 
   useEffect(() => {
     const storedSession = sessionStorage.getItem("session");
@@ -103,16 +104,29 @@ const App: React.FC = () => {
 
   return (
     <div>
-      {!session ? (
-        <StartPage startSession={startSession} />
+      {availableTest ? (
+        !session ? (
+          <StartPage startSession={startSession} />
+        ) : (
+          <>
+            <div className="p-5 text-xl font-medium text-center">
+              Waktu tersisa: {formatTime(timeLeft)}
+              <p>Goodluck!</p>
+            </div>
+            {session && <QuestionPage question={session.question} />}
+          </>
+        )
       ) : (
-        <>
-          <div className="p-5 text-xl font-medium text-center">
-            Waktu tersisa: {formatTime(timeLeft)}
-            <p>Goodluck!</p>
+        <div className="flex items-center justify-center flex-col w-[100vw] h-[100vh]">
+          <p className="text-4xl font-bold text-slate-900">
+            Terima Kasih sudah mengikuti Tes!
+          </p>
+          <p className="mt-2">Sampai Jumpa di Tes selanjutnya</p>
+
+          <div className="absolute bottom-0 p-8 text-slate-400">
+            Copyright &copy; Made by joe - See Yaa!
           </div>
-          <QuestionPage question={session.question} />
-        </>
+        </div>
       )}
     </div>
   );
