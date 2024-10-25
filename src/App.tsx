@@ -6,7 +6,7 @@ import type { Session } from "./helper/type";
 
 const App: React.FC = () => {
   const [session, setSession] = useState<Session | null>(null);
-  const [timeLeft, setTimeLeft] = useState<number>(40 * 60); // 40 minutes in seconds
+  const [timeLeft, setTimeLeft] = useState<number>(35 * 60); // 35 minutes in seconds
 
   useEffect(() => {
     const storedSession = sessionStorage.getItem("session");
@@ -15,9 +15,9 @@ const App: React.FC = () => {
         const parsedSession: Session = JSON.parse(storedSession);
         const elapsedTime = (Date.now() - parsedSession.startTime) / 1000;
 
-        if (elapsedTime < 40 * 60) {
+        if (elapsedTime < 35 * 60) {
           setSession(parsedSession);
-          setTimeLeft(40 * 60 - elapsedTime);
+          setTimeLeft(35 * 60 - elapsedTime);
         } else {
           sessionStorage.removeItem("session");
         }
@@ -92,7 +92,7 @@ const App: React.FC = () => {
     };
     sessionStorage.setItem("session", JSON.stringify(newSession));
     setSession(newSession);
-    setTimeLeft(40 * 60); // Reset the timeLeft state
+    setTimeLeft(35 * 60); // Reset the timeLeft state
   };
 
   const formatTime = (seconds: number) => {

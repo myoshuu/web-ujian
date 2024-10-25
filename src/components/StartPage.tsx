@@ -15,6 +15,7 @@ const StartPage: React.FC<StartPage> = ({ startSession }) => (
           Rahasia
         </span>
       </p>
+
       <p className="mt-2 italic">Tunggu instruksi selanjutnya.</p>
       <button
         onClick={startSession}
