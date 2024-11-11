@@ -6,7 +6,7 @@ import type { Session } from "./helper/type";
 
 const App: React.FC = () => {
   const [session, setSession] = useState<Session | null>(null);
-  const [timeLeft, setTimeLeft] = useState<number>(35 * 60); // 35 minutes in seconds
+  const [timeLeft, setTimeLeft] = useState<number>(120 * 60); // 120 minutes in seconds
   const [availableTest] = useState(true);
 
   useEffect(() => {
@@ -16,9 +16,10 @@ const App: React.FC = () => {
         const parsedSession: Session = JSON.parse(storedSession);
         const elapsedTime = (Date.now() - parsedSession.startTime) / 1000;
 
-        if (elapsedTime < 35 * 60) {
+        if (elapsedTime < 120 * 60) {
+          // 120 minutes in seconds
           setSession(parsedSession);
-          setTimeLeft(35 * 60 - elapsedTime);
+          setTimeLeft(120 * 60 - elapsedTime);
         } else {
           sessionStorage.removeItem("session");
         }
@@ -52,13 +53,11 @@ const App: React.FC = () => {
 
   useEffect(() => {
     const handleVisibilityChange = () => {
-      setTimeout(() => {
-        if (document.visibilityState === "hidden") {
-          sessionStorage.removeItem("session");
-          setSession(null);
-          alert("Anda meninggalkan tab. Sesi telah diakhiri.");
-        }
-      }, 0);
+      if (session && document.visibilityState === "hidden") {
+        sessionStorage.removeItem("session");
+        setSession(null);
+        alert("Anda meninggalkan tab. Sesi telah diakhiri.");
+      }
     };
 
     document.addEventListener("visibilitychange", handleVisibilityChange);
@@ -66,7 +65,7 @@ const App: React.FC = () => {
     return () => {
       document.removeEventListener("visibilitychange", handleVisibilityChange);
     };
-  }, []);
+  }, [session]);
 
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
@@ -93,13 +92,17 @@ const App: React.FC = () => {
     };
     sessionStorage.setItem("session", JSON.stringify(newSession));
     setSession(newSession);
-    setTimeLeft(35 * 60); // Reset the timeLeft state
+    setTimeLeft(120 * 60); // Reset the timeLeft state to 120 minutes
   };
 
   const formatTime = (seconds: number) => {
-    const minutes = Math.floor(seconds / 60);
+    const hours = Math.floor(seconds / 3600);
+    const minutes = Math.floor((seconds % 3600) / 60);
     const remainingSeconds = Math.floor(seconds % 60);
-    return `${minutes}:${remainingSeconds < 10 ? "0" : ""}${remainingSeconds}`;
+
+    return `${hours} jam ${minutes} menit ${
+      remainingSeconds < 10 ? "0" : ""
+    }${remainingSeconds} detik`;
   };
 
   return (
