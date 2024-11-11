@@ -38,9 +38,9 @@ const App: React.FC = () => {
             clearInterval(timer);
             sessionStorage.removeItem("session");
             setSession(null);
-            alert(
-              "Waktu sesi telah habis, Anda akan dikembalikan ke halaman awal."
-            );
+            // alert(
+            //   "Waktu sesi telah habis, Anda akan dikembalikan ke halaman awal."
+            // );
             return 0;
           }
           return prevTimeLeft - 1;
@@ -56,7 +56,7 @@ const App: React.FC = () => {
       if (session && document.visibilityState === "hidden") {
         sessionStorage.removeItem("session");
         setSession(null);
-        alert("Anda meninggalkan tab. Sesi telah diakhiri.");
+        // alert("Anda meninggalkan tab. Sesi telah diakhiri.");
       }
     };
 
