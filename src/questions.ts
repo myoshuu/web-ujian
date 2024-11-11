@@ -10,6 +10,7 @@ import soal7 from "./assets/soal/SOAL7.pdf";
 import soal8 from "./assets/soal/SOAL8.pdf";
 import soal9 from "./assets/soal/SOAL9.pdf";
 import soal10 from "./assets/soal/SOAL10.pdf";
+import soal11 from "./assets/soal/SOAL11.pdf";
 
 const question: Question[] = [
   { id: 1, pdfUrl: soal1 },
@@ -22,6 +23,7 @@ const question: Question[] = [
   { id: 8, pdfUrl: soal8 },
   { id: 9, pdfUrl: soal9 },
   { id: 10, pdfUrl: soal10 },
+  { id: 11, pdfUrl: soal11 },
 ];
 
 export default question;
