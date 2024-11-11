@@ -7,7 +7,7 @@ import type { Session } from "./helper/type";
 const App: React.FC = () => {
   const [session, setSession] = useState<Session | null>(null);
   const [timeLeft, setTimeLeft] = useState<number>(35 * 60); // 35 minutes in seconds
-  const [availableTest] = useState(false);
+  const [availableTest] = useState(true);
 
   useEffect(() => {
     const storedSession = sessionStorage.getItem("session");
